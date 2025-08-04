@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CatalogoVehiculosApp.MainPage"
+             Title="Catálogo de Vehículos">
+    <!--
+        La interfaz principal contiene una barra de búsqueda y una
+        colección horizontal de tarjetas de vehículos.
+        Cada tarjeta muestra información relevante del vehículo
+        tal como se obtienen del archivo JSON remoto.
+    -->
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <!-- Barra de búsqueda que filtra por marca o tipo -->
+            <SearchBar Placeholder="Buscar por marca o tipo"
+                       Text="{Binding SearchText}" />
+
+            <!-- CollectionView horizontal -->
+            <CollectionView ItemsSource="{Binding Vehicles}"
+                            ItemsLayout="HorizontalList"
+                            HorizontalScrollBarVisibility="Never">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Frame para cada tarjeta -->
+                        <Frame Margin="10" Padding="10" WidthRequest="300"
+                               BorderColor="#cccccc" CornerRadius="10">
+                            <VerticalStackLayout Spacing="5">
+                                <!-- Imagen principal del vehículo -->
+                                <Image Source="{Binding Imagen}" HeightRequest="120" Aspect="AspectFill"/>
+                                <!-- Logo de la marca -->
+                                <Image Source="{Binding Logo}" HeightRequest="40" Aspect="AspectFit"/>
+                                <Label Text="{Binding Marca}" FontAttributes="Bold" FontSize="Large"/>
+                                <Label Text="{Binding Modelo}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Caracteristicas}" FontSize="Small"/>
+                                <Label Text="{Binding Tipo}"/>
+                                <Label Text="Motor: {Binding Motor}"/>
+                                <Label Text="Combustible: {Binding Combustible}"/>
+                                <Label Text="Categoría: {Binding Categoria}"/>
+                                <Label Text="{Binding PrecioCompra, StringFormat='Precio compra: {0:C}'}"/>
+                                <Label Text="{Binding PrecioVenta, StringFormat='Precio venta: {0:C}'}"/>
+                                <Label Text="{Binding Existencia, StringFormat='Existencia: {0}'}"/>
+                                <Button Text="Más detalles" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
